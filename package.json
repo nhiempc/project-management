@@ -1,0 +1,39 @@
+{
+  "name": "project-management",
+  "version": "1.0.0",
+  "description": "A simple app to manage your projects",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nhiempc/project-management.git"
+  },
+  "author": "nhiempc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nhiempc/project-management/issues"
+  },
+  "homepage": "https://github.com/nhiempc/project-management#readme",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-graphql": "^0.12.0",
+    "graphql": "^15.8.0",
+    "mongoose": "^6.9.2"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.3",
+    "eslint": "^8.34.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.6.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.32.2",
+    "nodemon": "^2.0.20"
+  }
+}
