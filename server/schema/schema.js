@@ -4,6 +4,7 @@ import ClientModel from '../models/Client.js';
 import {
     GraphQLID,
     GraphQLList,
+    GraphQLNonNull,
     GraphQLObjectType,
     GraphQLSchema,
     GraphQLString
@@ -37,6 +38,7 @@ const ProjectType = new GraphQLObjectType({
     })
 });
 
+// Root query
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
@@ -69,8 +71,43 @@ const RootQuery = new GraphQLObjectType({
     }
 });
 
+// Mutations
+const mutation = new GraphQLObjectType({
+    name: 'Mutation',
+    fields: {
+        // Add a client
+        addClient: {
+            type: ClientType,
+            args: {
+                name: { type: GraphQLNonNull(GraphQLString) },
+                email: { type: GraphQLNonNull(GraphQLString) },
+                phone: { type: GraphQLNonNull(GraphQLString) }
+            },
+            resolve(parent, args) {
+                const client = new ClientModel({
+                    name: args.name,
+                    email: args.email,
+                    phone: args.phone
+                });
+                return client.save();
+            }
+        },
+        // Delete a client
+        deleteClient: {
+            type: ClientType,
+            args: {
+                id: { type: GraphQLNonNull(GraphQLID) }
+            },
+            resolve(parent, args) {
+                return ClientModel.findByIdAndRemove(args.id);
+            }
+        }
+    }
+});
+
 const schema = new GraphQLSchema({
-    query: RootQuery
+    query: RootQuery,
+    mutation
 });
 
 export default schema;
