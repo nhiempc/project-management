@@ -1,4 +1,5 @@
-import { projects, clients } from '../sampleData.js';
+import ProjectModel from '../models/Project.js';
+import ClientModel from '../models/Client.js';
 
 import {
     GraphQLID,
@@ -30,7 +31,7 @@ const ProjectType = new GraphQLObjectType({
         client: {
             type: ClientType,
             resolve(parent, args) {
-                return clients.find((client) => client.id === parent.clientId);
+                return ClientModel.findById(parent.clientId);
             }
         }
     })
@@ -42,27 +43,27 @@ const RootQuery = new GraphQLObjectType({
         clients: {
             type: new GraphQLList(ClientType),
             resolve(parent, args) {
-                return clients;
+                return ClientModel.find();
             }
         },
         client: {
             type: ClientType,
             args: { id: { type: GraphQLID } },
             resolve(parent, args) {
-                return clients.find((client) => client.id === args.id);
+                return ClientModel.findById(args.id);
             }
         },
         projects: {
             type: new GraphQLList(ProjectType),
             resolve(parent, args) {
-                return projects;
+                return ProjectModel.find();
             }
         },
         project: {
             type: ProjectType,
             args: { id: { type: GraphQLID } },
             resolve(parent, args) {
-                return projects.find((project) => project.id === args.id);
+                return ProjectModel.findById(args.id);
             }
         }
     }
